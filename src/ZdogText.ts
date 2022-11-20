@@ -1,31 +1,27 @@
-export function registerTextClass(Zdog) {
-
+export function registerTextClass(Zdog: any) {
   // Zdog.Text class
   class ZdogText extends Zdog.Shape {
-    constructor(props) {
+    constructor(props: any) {
       // Set missing props to default values
-      props = Zdog.extend({
-        font: null,
-        value: '',
-        fontSize: 64,
-        textAlign: 'left',
-        textBaseline: 'bottom',
-      }, props);
+      props = Zdog.extend(
+        {
+          font: null,
+          value: "",
+          fontSize: 64,
+          textAlign: "left",
+          textBaseline: "bottom",
+        },
+        props
+      );
       // Split props
-      const {
-        font,
-        value,
-        fontSize,
-        textAlign,
-        textBaseline,
-        ...shapeProps
-      } = props;
+      const { font, value, fontSize, textAlign, textBaseline, ...shapeProps } =
+        props;
       // Create shape object
       super({
         ...shapeProps,
         closed: true,
         visible: false, // hide until font is loaded
-        path: [{}]
+        path: [{}],
       });
       this._font = null;
       this._value = value;
@@ -36,8 +32,17 @@ export function registerTextClass(Zdog) {
     }
 
     updateText() {
-      let path = this.font.getTextPath(this.value, this.fontSize, 0, 0, 0, this.textAlign, this.textBaseline);
-      if (path.length == 0) { // zdog doesn't know what to do with empty path arrays
+      let path = this.font.getTextPath(
+        this.value,
+        this.fontSize,
+        0,
+        0,
+        0,
+        this.textAlign,
+        this.textBaseline
+      );
+      if (path.length == 0) {
+        // zdog doesn't know what to do with empty path arrays
         this.path = [{}];
         this.visible = false;
       } else {
@@ -58,7 +63,7 @@ export function registerTextClass(Zdog) {
           root = root.addTo;
         }
         // Update render graph
-        if (root && typeof root.updateRenderGraph === 'function') {
+        if (root && typeof root.updateRenderGraph === "function") {
           root.updateRenderGraph();
         }
       });
@@ -72,7 +77,7 @@ export function registerTextClass(Zdog) {
       this._value = newValue;
       this.updateText();
     }
-    
+
     get value() {
       return this._value;
     }
@@ -105,7 +110,13 @@ export function registerTextClass(Zdog) {
     }
   }
 
-  ZdogText.optionKeys = ZdogText.optionKeys.concat(['font', 'fontSize', 'value', 'textAlign', 'textBaseline']);
+  ZdogText.optionKeys = ZdogText.optionKeys.concat([
+    "font",
+    "fontSize",
+    "value",
+    "textAlign",
+    "textBaseline",
+  ]);
   Zdog.Text = ZdogText;
   return Zdog;
 }

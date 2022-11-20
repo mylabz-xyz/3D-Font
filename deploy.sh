@@ -15,7 +15,7 @@ git add -A
 git commit -m 'deploy demo page'
 
 # force push commit to gh-pages branch
-git push -f git@github.com:jaames/zfont.git master:gh-pages
+git push -f git@github.com:mylabz-xyz/3D-Font.git master:gh-pages
 
 # navigate to last directory
 cd -
