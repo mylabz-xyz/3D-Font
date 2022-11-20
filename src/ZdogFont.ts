@@ -1,4 +1,4 @@
-import { Typr, TyprU } from "typr-ts";
+import * as Typr from "typr.js";
 
 const TEXT_NEWLINE_REGEXP = /\r?\n/;
 
@@ -11,6 +11,8 @@ export function registerFontClass(Zdog: any) {
     _loadCallbacks: any[];
 
     constructor(props: any) {
+      console.log(Typr);
+      console.log(Typr.parse);
       // Set missing props to default values
       props = Zdog.extend(
         {
@@ -87,7 +89,7 @@ export function registerFontClass(Zdog: any) {
       const ascender = font.hhea.ascender;
       const lineGap = font.hhea.lineGap;
       const lineWidths = lines.map((line: any) => {
-        const glyphs = TyprU.stringToGlyphs(this.font, line);
+        const glyphs = Typr.U.stringToGlyphs(this.font, line);
         return glyphs.reduce((advanceWidth: any, glyphId: number) => {
           // stringToGlyphs returns an array on glyph IDs that is the same length as the text string
           // an ID can sometimes be -1 in cases where multiple characters are merged into a single ligature
@@ -144,8 +146,8 @@ export function registerFontClass(Zdog: any) {
             alignY
           );
           y += lineHeight;
-          const glyphs = TyprU.stringToGlyphs(this.font, line);
-          const path = TyprU.glyphsToPath(this.font, glyphs, null);
+          const glyphs = Typr.U.stringToGlyphs(this.font, line);
+          const path = Typr.U.glyphsToPath(this.font, glyphs, null);
           return this._convertPathCommands(path, fontSize, _x, _y, z);
         })
         .flat();
@@ -173,7 +175,7 @@ export function registerFontClass(Zdog: any) {
         : text.split(TEXT_NEWLINE_REGEXP);
       return lines
         .map((line: any, lineIndex: string | number) => {
-          const glyphs = TyprU.stringToGlyphs(this.font, line);
+          const glyphs = Typr.U.stringToGlyphs(this.font, line);
           let [_x, _y, _z] = this.getTextOrigin(
             {
               ...measurements!,
@@ -189,7 +191,7 @@ export function registerFontClass(Zdog: any) {
           return glyphs
             .filter((glyph: number) => glyph !== -1)
             .map((glyphId: string | number) => {
-              const path = TyprU.glyphToPath(this.font, glyphId);
+              const path = Typr.U.glyphsToPath(this.font, glyphId);
               const shape = {
                 translate: { x: _x, y: _y, z: _z },
                 path: this._convertPathCommands(path, fontSize, 0, 0, 0),

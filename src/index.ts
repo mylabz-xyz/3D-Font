@@ -2,7 +2,7 @@ import { registerFontClass } from "./ZdogFont";
 import { registerTextClass } from "./ZdogText";
 import { registerTextGroupClass } from "./ZdogTextGroup";
 
-export default function init(Zdog: any) {
+export function init(Zdog: any) {
   // Global font list to keep track of all fonts
   Zdog.FontList = [];
 

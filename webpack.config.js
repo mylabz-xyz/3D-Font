@@ -5,7 +5,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
-    index: path.resolve(__dirname, "src/index.ts"),
+    "build/index": path.resolve(__dirname, "src/index.ts"),
+    "demo/index": path.resolve(__dirname, "src/demo/demo.ts"),
   },
   module: {
     rules: [
@@ -18,9 +19,9 @@ module.exports = {
   },
   resolve: { extensions: [".ts"] },
   output: {
-    path: path.resolve(__dirname, "./dist/build"),
+    library: ["Zfont"],
+    path: path.resolve(__dirname, "./dist"),
     chunkFilename: "[name].js",
-    filename: "[name].js",
   },
 
   mode: "development",
@@ -36,9 +37,23 @@ module.exports = {
           from: "./README.md",
           to: "./../README.md",
         },
+        {
+          from: "./src/demo/demo.css",
+          to: "./demo/demo.css",
+        },
+        {
+          from: "./src/demo/index.html",
+          to: "./demo/index.html",
+        },
+        {
+          from: "./src/demo/fredokaone.ttf",
+          to: "./demo/fredokaone.ttf",
+        },
       ],
     }),
   ],
   devtool: "source-map",
-  externals: "typr-ts",
+  externals: {
+    Typr: "typr.js",
+  },
 };

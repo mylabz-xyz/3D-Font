@@ -6,11 +6,11 @@
   "module": "dist/3dfont.mjs",
   "typings": "dist/3dfont.d.ts",
   "scripts": {
-    "dev": "rollup -c --environment BUILD:development",
+    "dev": "webpack --watch --mode development",
     "build": "webpack"
   },
   "dependencies": {
-    "typr-ts": "^1.1.5"
+    "typr.js": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
